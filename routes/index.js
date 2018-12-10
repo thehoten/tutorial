@@ -3,6 +3,10 @@ var router = express.Router();
 var bodyParser=require('body-parser');
 var {Todo}=require('../models/Todo');
 
+var {mongoose}=require('../db/mongoose');
+
+
+
 router.use(bodyParser.json());
 
 /* GET home page. */
@@ -30,6 +34,17 @@ router.post('/todos',(req,res)=>{
     res.status(400).send(e);
   });
   console.log(req.body);
+});
+
+
+//hey
+router.get('/todos',(req,res)=>{
+  Todo.find().then((todos)=>{
+    console.log(todos);
+    res.send({todos});
+  },(e)=>{
+    res.status(400).send(e);
+  })
 });
 
 function exit(){
